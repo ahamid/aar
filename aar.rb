@@ -16,7 +16,6 @@ class Topic
   @@TEAM_REGEX = /(.*)\s+vs?\.?\s+(.*)/i
   @@REMAINDER_REGEX = /.*?(?:\s+(\[.+\]))?\s+(.*)\s+vs\s+(.*)/i
   
-  
   def initialize(div, span)
     # title format
     # #1234 [VIDEO] [HQ VIDEO] [2.6] TEXT [OP/TOURNEY, etc.] TEXT vs TEXT
@@ -122,12 +121,16 @@ class AfterActionReview < Shoes
   end
   
   def topic_widget(topic)
-    return stack do
-      border red
-      link "#{topic.num} #{topic.teams[0]} vs #{topic.teams[1]}" do
-        
+    return flow do
+      stack :width => "100px", :align => "center", :center => true do
+        para link("#{topic.num}", :click => "http://google.com"), :align => "center", :center => true 
+        button "download replay", :width => "90px", :align => "center", :center => true 
+        button "download shoutcast", :width => "90px", :align => "center", :center => true 
       end
-      inscription "video: #{topic.video} hqvideo: #{topic.hqvideo} version: #{topic.version} game: #{topic.game} extra: #{topic.extra}"
+      stack :width => "*" do
+        para link("#{topic.teams[0]} vs #{topic.teams[1]}", :click => "http://google.com")
+        inscription "video: #{topic.video} hqvideo: #{topic.hqvideo} version: #{topic.version} game: #{topic.game} extra: #{topic.extra}"
+      end
     end
   end
 
